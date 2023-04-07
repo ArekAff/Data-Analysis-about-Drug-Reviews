@@ -309,11 +309,11 @@ def classify_drug(drugname): #function to classify the drug based on the suffix
 
 df['drugClass'] = df['drugName'].apply(classify_drug) #applying the function to the drugName column
 
-#print(df[['drugName','drugClass']])
+print(df[['drugName','drugClass']])
 
-#arr = np.array(df['drugClass'].unique().tolist()) #unique drug classes
+arr = np.array(df['drugClass'].unique().tolist()) #unique drug classes
 
-#print(len(arr)) #number of unique drug classes
+print(len(arr)) #number of unique drug classes
 # Result: 144
 
 #Which class of drug is the most common?
@@ -331,10 +331,10 @@ df['drugClass'] = df['drugName'].apply(classify_drug) #applying the function to 
 # Nondepolarizing paralytics                       1186
 # This shows that the most common drug that has the review is classified as female hormone (progestin)
 
-# plt.figure(figsize=(20,10))
-# df['drugClass'].value_counts().nlargest(20).plot(kind='bar') #plotting the top 20 drug classes
-# plt.title("Distribution of Drugs by Class")
-# plt.show() 
+plt.figure(figsize=(20,10))
+df['drugClass'].value_counts().nlargest(20).plot(kind='bar') #plotting the top 20 drug classes
+plt.title("Distribution of Drugs by Class")
+plt.show() 
 
 print(df['drugClass'].value_counts().nsmallest(20)) # the least common drug classes
 #Result:
