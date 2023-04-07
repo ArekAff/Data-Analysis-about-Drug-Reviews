@@ -19,12 +19,14 @@ from textblob import TextBlob
 
 
 ###Questions we want to answer
-#1. Which is the most popular drug?
-#2. What are the groups/classification of drugs?
-#3. Which drug has the best review?
-#4. How many drugs do we have?
-#5. The number of drugs per condition
+#1. Which is the most popular drug? -
+#2. What are the groups/classification of drugs? -
+#3. Which drug has the best review? 
+#4. How many drugs do we have? -
+#5. The number of drugs per condition -
 #6. Number of patients that searched for particular drug
+
+# Also questions about the reviews and ratings
 
 
 #Loading the data
