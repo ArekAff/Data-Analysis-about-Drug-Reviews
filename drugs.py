@@ -25,8 +25,9 @@ from textblob import TextBlob
 #4. How many drugs do we have? -
 #5. The number of drugs per condition -
 #6. Number of patients that searched for particular drug
-
-# Also questions about the reviews and ratings
+# Analysis the usefullCount column 
+# Also questions about the reviews -
+# and ratings -
 
 
 #Loading the data
