@@ -2,7 +2,7 @@
 Data taken from: https://archive.ics.uci.edu/ml/datasets/Drug+Review+Dataset+%28Drugs.com%29
 
 # packages used: 
-numpy, pandas, matplotlib, seaborn
+numpy, pandas, matplotlib, seaborn, textblob
 
 
 Other sources:
