@@ -309,11 +309,11 @@ def classify_drug(drugname): #function to classify the drug based on the suffix
 
 df['drugClass'] = df['drugName'].apply(classify_drug) #applying the function to the drugName column
 
-#print(df[['drugName','drugClass']])
+print(df[['drugName','drugClass']])
 
 arr = np.array(df['drugClass'].unique()) #unique drug classes
 
-#print(len(arr)) #number of unique drug classes
+print(len(arr)) #number of unique drug classes
 # Result: 144
 
 
@@ -335,7 +335,7 @@ arr = np.array(df['drugClass'].unique()) #unique drug classes
 plt.figure(figsize=(20,10))
 df['drugClass'].value_counts().nlargest(20).plot(kind='bar') #plotting the top 20 drug classes
 plt.title("Distribution of Drugs by Class")
-#plt.show() 
+plt.show() 
 
 #print(df['drugClass'].value_counts().nsmallest(20)) # the least common drug classes
 #Result:
@@ -357,6 +357,19 @@ plt.title("Distribution of Drugs by Class")
 # b-lactamase inhibitors                                                                            3
 
 #Those are the least common drug classes
+
+#Distribution of drugs per Drug Group based on size
+drugs_Groups = df.groupby('drugClass').size()
+
+#Converting the series to a dataframe
+drug_group_df = pd.DataFrame({'drug_Class': drugs_Groups.index, 'count': drugs_Groups.values})
+
+# Seaborn Plot
+plt.figure(figsize=(20,10))
+g = sns.barplot(x="drug_Class", y="count", data=drug_group_df) #plotting the drug classes
+g.set_xticklabels(g.get_xticklabels(), rotation=90) #rotating the x-axis labels
+plt.show()
+
 
 
 #This concludes the analysis about classifications of drugs 
