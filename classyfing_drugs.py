@@ -376,3 +376,40 @@ plt.show()
 
 
 
+
+
+#Which class of drugs has the highest average rating?
+average_rating_per_class = df.groupby('drugClass')['rating'].mean()
+plt.figure(figsize=(20,10))
+average_rating_per_class.hist()
+plt.title("Histogram of Average Rating per Drug Class")
+plt.grid(True)
+plt.show()
+#Results show that most of the drugs classified by their classes have an average rating of 7-8
+
+#which group of drugs has the highest average rating?
+print(average_rating_per_class.nlargest(20))
+#Result:
+# acetylcholinesterase inhibitors, tacrine derivatives                    10.000000
+# antiallergics, cromoglicic acid derivatives                             10.000000
+# antineoplastic, alkylating agents, methanesulfonates                    10.000000
+# bradycardic agents                                                      10.000000
+# hirudin derivatives                                                     10.000000
+# ll-2 derivatives                                                        10.000000
+# oxytocin derivatives                                                    10.000000
+# ribofuranil-derivatives of the pyrazofurin type                         10.000000
+# benzodioxane derivatives                                                 9.800000
+# mucolytics, other than bromhexine derivatives                            9.555556
+# vasoconstrictors, vasopressin derivatives                                9.538462
+# antineoplastic, alkylating agents, (b-chloroethyl) amine derivatives     9.250000
+# heparin derivatives including low molecular mass heparins                9.222222
+# analgesics, pethidine derivatives                                        9.106383
+# Methylxanthine                                                           9.000000
+# Vasopressin receptor antagonist                                          9.000000
+# antibiotics, carbacepham derivatives                                     9.000000
+# hormone-release inhibiting peptides                                      9.000000
+# Barbiturates                                                             8.894737
+# Benzodiazepinea                                                          8.837451
+
+
+
