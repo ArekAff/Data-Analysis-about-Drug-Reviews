@@ -13,8 +13,8 @@ df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t')
 #---------------5. The number of drugs per condition----------------
 
 #How many different conditions do we have?
-#unique_conditions = df['condition'].unique()
-#print(len(unique_conditions))
+unique_conditions = df['condition'].unique()
+print(len(unique_conditions))
 #Result: 885
 # We have 885 different conditions
 
@@ -48,11 +48,11 @@ df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t')
 # Which checks out with the date we established in classification of drugs because no 1. was female hormone (progestin) which acts as 
 # contraception and no 3. was Selective serotonin reuptake inhibitors which are used to treat depression and anxiety
 
-# Plotting the most popular conditions
-# plt.figure(figsize=(20,10))
-# df['condition'].value_counts().nlargest(20).head(20).plot(kind='bar')
-# plt.title("20 most common conditions")
-# plt.show()
+#Plotting the most popular conditions
+plt.figure(figsize=(20,10))
+df['condition'].value_counts().nlargest(20).head(20).plot(kind='bar')
+plt.title("20 most common conditions")
+plt.show()
 
 #print(df['condition'].value_counts().nsmallest(20))
 #Result:
