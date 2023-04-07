@@ -5,4 +5,5 @@ Data taken from: https://archive.ics.uci.edu/ml/datasets/Drug+Review+Dataset+%28
 
 
 Other sources:
-https://www.drugs.com/inn-stems.htmlhttps://accesspharmacy.mhmedical.com/content.aspx?bookid=1549&sectionid=93411751
+https://www.drugs.com/inn-stems.html
+https://accesspharmacy.mhmedical.com/content.aspx?bookid=1549&sectionid=93411751
