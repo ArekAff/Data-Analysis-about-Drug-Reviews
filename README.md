@@ -1,7 +1,8 @@
 # Data-Analysis-about-Drug-Reviews
 Data taken from: https://archive.ics.uci.edu/ml/datasets/Drug+Review+Dataset+%28Drugs.com%29
 
-# packages used: numpy, pandas, matplotlib, seaborn
+# packages used: 
+numpy, pandas, matplotlib, seaborn
 
 
 Other sources:
