@@ -8,7 +8,7 @@ import seaborn as sns
 #For text processing
 from textblob import TextBlob
 
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t')
+df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
 
 
 #--------------------2. What are the groups/classification of drugs?--------------------

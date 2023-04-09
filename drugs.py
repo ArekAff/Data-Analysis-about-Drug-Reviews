@@ -31,7 +31,7 @@ from textblob import TextBlob
 
 
 #Loading the data
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t') # Reading the data
+df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t') # Reading the data
 #The data is not in the csv format but we can read it using the sep='\t' parameter
 
 
