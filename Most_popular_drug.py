@@ -1,8 +1,5 @@
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+from tools import *
 
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t') # Reading the data
 #---------------1. Which is the most popular drug?----------------
 
 #How many drugs do we have?

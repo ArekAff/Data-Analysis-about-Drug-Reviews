@@ -1,14 +1,5 @@
-import numpy as np
-import pandas as pd
+from tools import *
 
-#For plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-#For text processing
-from textblob import TextBlob
-
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t') # Reading the data
 #Questions About Reviews
 # How genuine is the review? (Using sentiment analysis)
 # How many reviews are positive and how many are negative?
