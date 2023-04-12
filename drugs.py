@@ -1,13 +1,5 @@
-# Description: This file contains the code for the drugs dataset
-import numpy as np
-import pandas as pd
+from tools import *
 
-#For plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-#For text processing
-from textblob import TextBlob
 
 #Attribute Information:
 #drugName (categorical): name of drug
@@ -28,11 +20,6 @@ from textblob import TextBlob
 # Analysis the usefullCount column 
 # Also questions about the reviews -
 # and ratings -
-
-
-#Loading the data
-df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t') # Reading the data
-#The data is not in the csv format but we can read it using the sep='\t' parameter
 
 
 #Previewing the data

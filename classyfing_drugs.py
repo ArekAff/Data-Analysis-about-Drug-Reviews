@@ -1,15 +1,4 @@
-import numpy as np
-import pandas as pd
-
-#For plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-#For text processing
-from textblob import TextBlob
-
-df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
-
+from tools import *
 
 #--------------------2. What are the groups/classification of drugs?--------------------
 # We will be classifying the drugs based on their sufixes, 
