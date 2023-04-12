@@ -41,10 +41,3 @@ print(df.isnull().sum())
 #-----------------------------------------
 #So every missing value is in the condition column
 #That means that most of people don't know what condition they have or dont want to share it
-
-
-
-
-
-
-
