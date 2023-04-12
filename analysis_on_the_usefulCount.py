@@ -1,15 +1,4 @@
-# Description: This file contains the code for the drugs dataset
-import numpy as np
-import pandas as pd
-
-#For plotting
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-#For text processing
-from textblob import TextBlob
-
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t') # Reading the data
+from tools import *
 
 #The usefull count is number of users who found review useful 
 
@@ -84,3 +73,10 @@ df.groupby('drugClass')['usefulCount'].nunique().sort_values(ascending=False).he
 # female hormone (progestin)                                              116
 
 df.groupby('drugClass')['usefulCount'].nunique().sort_values(ascending=False).head(20).plot(kind='bar',figsize=(15,5))
+
+# Correlation between usefulCount and rating
+plt.title("Correlation between usefulCount and rating")
+sns.lineplot(data=df,x='rating',y='usefulCount')
+#As we can see as rating of the drug increases the usefulCount also increases
+
+
