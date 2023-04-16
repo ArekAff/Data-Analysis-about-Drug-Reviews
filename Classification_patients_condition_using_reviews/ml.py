@@ -132,7 +132,7 @@ count_train = count_vectorizer.fit_transform(X_train)
 count_test = count_vectorizer.transform(X_test)
 
 
-####Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with bag of words model
+#Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with bag of words model
 Naive_Bayes(count_train,count_test) #Result: 0.932 accuracy
 Passive_Aggressive(count_train,count_test) #Result: 0.941 accuracy
 
@@ -144,15 +144,40 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_df=0.8) 
 #max_df is used for removing terms that appear too frequently, also known as 
 # "corpus-specific stop words"
-tfidf_train_2 = tfidf_vectorizer.fit_transform(X_train)
-tfidf_test_2 = tfidf_vectorizer.transform(X_test)
+tfidf_train = tfidf_vectorizer.fit_transform(X_train)
+tfidf_test= tfidf_vectorizer.transform(X_test)
 
 
-####Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with TFIDF model
-Naive_Bayes(tfidf_train_2,tfidf_test_2) #Result: 0.887 accuracy Accuracy is less than the previous model
-Passive_Aggressive(tfidf_train_2,tfidf_test_2) #Result: 0.948 accuracy ------------Highest accuracy
+#Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with TFIDF model
+Naive_Bayes(tfidf_train,tfidf_test) #Result: 0.887 accuracy Accuracy is less than the previous model
+Passive_Aggressive(tfidf_train,tfidf_test) #Result: 0.948 accuracy ------------Highest accuracy
+
+#Passive agressive classifier is generaly giving better results in accuracy
+
+#TDIDF Bi-gram model
+tfidf_vectorizer_2 = TfidfVectorizer(stop_words='english', max_df=0.8 ,ngram_range=(1,2))
+tfidf_train_2 = tfidf_vectorizer_2.fit_transform(X_train)
+tfidf_test_2 = tfidf_vectorizer_2.transform(X_test)
+
+#Passive Aggressive Classifier with TDIDF Bi-gram model
+Passive_Aggressive(tfidf_train_2,tfidf_test_2) #Result: 0.964 accuracy
+
+#TDIDF Tri-gram model
+tfidf_vectorizer_3 = TfidfVectorizer(stop_words='english', max_df=0.8 ,ngram_range=(1,3))
+tfidf_train_3 = tfidf_vectorizer_3.fit_transform(X_train)
+tfidf_test_3 = tfidf_vectorizer_3.transform(X_test)
+#Passive Aggressive Classifier with TDIDF Bi-gram model
+Passive_Aggressive(tfidf_train_3,tfidf_test_3) #Result: 0.964 accuracy --- Accuracy is same as Bi-gram model
+
+X.tail()
+
+passive = PassiveAggressiveClassifier()
+passive.fit(tfidf_train_3, y_train)
+pred = passive.predict(tfidf_test_3)
+score = metrics.accuracy_score(y_test, pred)
 
 
+text = ["This is the third med I&#039;ve tried for anxiety and mild depression. Been on it for a week and I hate it so much. I am so dizzy, I have major diarrhea and feel worse than I started. Contacting my doc in the am and changing asap."]
+test = tfidf_vectorizer_3.transform(text)
+pred1 = passive.predict(test)[0]
 
-
-####Comparing the accuracy of both the models
