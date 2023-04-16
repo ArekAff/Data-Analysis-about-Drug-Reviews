@@ -180,4 +180,4 @@ score = metrics.accuracy_score(y_test, pred)
 text = ["This is the third med I&#039;ve tried for anxiety and mild depression. Been on it for a week and I hate it so much. I am so dizzy, I have major diarrhea and feel worse than I started. Contacting my doc in the am and changing asap."]
 test = tfidf_vectorizer_3.transform(text)
 pred1 = passive.predict(test)[0]
-
+#Result: 'Depresion' that means the model is predicting the correct class
