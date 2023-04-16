@@ -30,7 +30,7 @@ X_Pain = X[X['condition'] == 'Pain']
 # in classifying the condition by ploting all the words together 
 from wordcloud import WordCloud
 
-#Tokenizing the sentences
+####Tokenizing the sentences
 def WordCloudCreation(data,name):
     plt.figure(figsize = (20,20))
     wc = WordCloud(max_words = 500 , width = 1600 , height = 800).generate(" ".join(data.review))
@@ -56,6 +56,7 @@ stopWords = stopwords.words('english')
 
 
 
+
 ####Cleaning reviews
 #Removing punctuations
 #Removing special characters/numbers
@@ -74,17 +75,84 @@ def Cleaningsentences(sentence):
     return ' '.join(lemmitized_words)
 X['cleanReview'] = X['review'].apply(Cleaningsentences)
 
-X.head()
+
+###Creating features and Target Variable
+X_feat = X['cleanReview']
+Y = X['condition']
+
+X_train, X_test, y_train, y_test = train_test_split(X_feat, Y, stratify = Y, test_size=0.2, random_state=0)
+
+def plot_confusion_matrix(cm, classes, normalize = False, title='Confusion matrix', cmap=plt.cm.Blues):
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+    
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+        
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, cm[i, j], horizontalalignment="center", color="white" if cm[i, j] > thresh else "black")
+
+    plt.tight_layout()
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+
+#Naive Bayes Classifier
+def Naive_Bayes(train , test):
+    mnb = MultinomialNB()
+    mnb.fit(train, y_train)
+    pred = mnb.predict(count_test)
+    score = metrics.accuracy_score(y_test, pred)
+    print("accuracy:   %0.3f" % score)
+    cm = metrics.confusion_matrix(y_test, pred, labels=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+    plot_confusion_matrix(cm, classes=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+
+
+#Passive Aggressive Classifier
+from sklearn.linear_model import PassiveAggressiveClassifier,LogisticRegression
+def Passive_Aggressive(train , test):
+    passive = PassiveAggressiveClassifier()
+    passive.fit(train, y_train)
+    pred = passive.predict(test)
+    score = metrics.accuracy_score(y_test, pred)
+    print("accuracy:   %0.3f" % score)
+    cm = metrics.confusion_matrix(y_test, pred, labels=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+    plot_confusion_matrix(cm, classes=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+
+####Creating a bag of words model
+count_vectorizer = CountVectorizer(stop_words='english')
+count_train = count_vectorizer.fit_transform(X_train)
+count_test = count_vectorizer.transform(X_test)
+
+
+####Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with bag of words model
+Naive_Bayes(count_train,count_test) #Result: 0.932 accuracy
+Passive_Aggressive(count_train,count_test) #Result: 0.941 accuracy
+
+
+
+####Creating TFIDF model
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+tfidf_vectorizer = TfidfVectorizer(stop_words='english', max_df=0.8) 
+#max_df is used for removing terms that appear too frequently, also known as 
+# "corpus-specific stop words"
+tfidf_train_2 = tfidf_vectorizer.fit_transform(X_train)
+tfidf_test_2 = tfidf_vectorizer.transform(X_test)
+
+
+####Applying ML algorithms Naive Bayes & Passive Aggressive Classifier with TFIDF model
+Naive_Bayes(tfidf_train_2,tfidf_test_2) #Result: 0.887 accuracy Accuracy is less than the previous model
+Passive_Aggressive(tfidf_train_2,tfidf_test_2) #Result: 0.948 accuracy ------------Highest accuracy
 
 
 
 
-#Creating a bag of words model
-
-#Applying ML algorithms Naive Bayes & Passive Aggressive Classifier
-
-#Creating TFIDF model
-
-#Applying ML algorithms Naive Bayes & Passive Aggressive Classifier
-
-#Comparing the accuracy of both the models
+####Comparing the accuracy of both the models
