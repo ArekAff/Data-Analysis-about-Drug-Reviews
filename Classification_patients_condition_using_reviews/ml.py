@@ -10,7 +10,7 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn import metrics
 import matplotlib.pyplot as plt
 pd.set_option('display.max_rows', None) #To display all the rows
-df = pd.read_csv('C:\Python\Drugs\drugsComTrain_raw.tsv',sep='\t')
+df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
 
 df.condition.value_counts()
 
@@ -67,12 +67,12 @@ from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
 import re
 def Cleaningsentences(sentence):
-    sentence = BeautifulSoup(sentence, 'html.parser').get_text()
-    sentence = re.sub(r'[^a-zA-Z]', ' ', sentence)
-    sentence = sentence.lower().split()
-    meaningful_words = [w for w in sentence if not w in stopWords]
-    lemmitized_words = [WordNetLemmatizer().lemmatize(w) for w in meaningful_words]
-    return ' '.join(lemmitized_words)
+    sentence = BeautifulSoup(sentence, 'html.parser').get_text() #Removing HTML tags
+    sentence = re.sub(r'[^a-zA-Z]', ' ', sentence) #Removing special characters
+    sentence = sentence.lower().split() #Converting to lowercase
+    meaningful_words = [w for w in sentence if not w in stopWords] #Removing stopwords
+    lemmitized_words = [WordNetLemmatizer().lemmatize(w) for w in meaningful_words] #Lemmitization
+    return ' '.join(lemmitized_words) #Joining the words to form a sentence
 X['cleanReview'] = X['review'].apply(Cleaningsentences)
 
 
