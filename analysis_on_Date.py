@@ -50,7 +50,8 @@ grouped_date['2010']['rating'].plot(figsize=(15,10))
 #This are numer of reviews written in may of 2009
 plt.title("Number of reviews in May 2009")
 grouped_date['2009-05']['review'].plot(figsize=(15,10))
-grouped_date['2009-05']['review']
+plt.show()
+grouped_date.loc['2009-05']['review']
 # 2009-05-01    27
 # 2009-05-10    25
 # 2009-05-11    34

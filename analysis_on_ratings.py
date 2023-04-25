@@ -35,6 +35,15 @@ print(df.groupby('rating').size())
 average_rating = df['rating'].groupby(df['drugName']).mean()
 print(average_rating)
 
+print(df['rating'].mean())
+print(df['rating'].median())
+print(df['rating'].min())
+print(df['rating'].max())
+print(df['rating'].stdev())
+
+
+
+
 plt.figure(figsize=(20,10))
 average_rating.hist()
 plt.title("Average rating of every drug")
