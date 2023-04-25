@@ -44,14 +44,14 @@ grouped_date = grouped_date.set_index('date')
 
 #From grouped date we can extract different information based on date for example plot of means of ratings in 2010
 plt.title("Avarege Rating in 2010")
-grouped_date['2010']['rating'].plot(figsize=(15,10))
+grouped_date.loc['2010']['rating'].plot(figsize=(15,10))
 
 #We can also extract information about month 
 #This are numer of reviews written in may of 2009
 plt.title("Number of reviews in May 2009")
-grouped_date['2009-05']['review'].plot(figsize=(15,10))
-plt.show()
-grouped_date.loc['2009-05']['review']
+grouped_date.loc['2009-05']['review'].plot(figsize=(15,10))
+#grouped_date.loc['2009-05']['review']
+print(grouped_date.loc['2009-05']['review'])
 # 2009-05-01    27
 # 2009-05-10    25
 # 2009-05-11    34
