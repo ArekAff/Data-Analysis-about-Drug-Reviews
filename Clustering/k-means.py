@@ -65,23 +65,16 @@ labels = kmeans.labels_
 # concatenate labels with X and other columns
 clustered_df = pd.concat([df[['condition', 'rating', 'usefulCount', 'drugName']].reset_index(drop=True), pd.DataFrame(labels, columns=['cluster_label'])], axis=1)
 
+u_labels = np.unique(labels)
+clustered_df0 = clustered_df[clustered_df['cluster_label'] == 0]
+clustered_df1 = clustered_df[clustered_df['cluster_label'] == 1]
+clustered_df2 = clustered_df[clustered_df['cluster_label'] == 2]
+clustered_df3 = clustered_df[clustered_df['cluster_label'] == 3]
 
-# Define colors for each data point based on cluster label
-colors = ['r', 'g', 'b']
-cluster_colors = [colors[label] for label in clustered_df['cluster_label']]
-
-# Plot data points with different colors for each cluster
-fig = plt.figure(figsize=(10,10))
-ax = fig.add_subplot(projection='3d')
-ax.scatter(clustered_df['condition'], clustered_df['rating'], clustered_df['usefulCount'], c=cluster_colors)
-
-# Add labels to axes
-ax.set_xlabel('Condition')
-ax.set_ylabel('Rating')
-ax.set_zlabel('Useful Count')
-plt.title('K-Means Clustering')
-
-plt.show()
+plt.scatter(clustered_df0['rating'], clustered_df0['usefulCount'],clustered_df0['condition'], c='red', label='Cluster 0')
+plt.scatter(clustered_df1['rating'], clustered_df1['usefulCount'],clustered_df1['condition'], c='black', label='Cluster 1')
+plt.scatter(clustered_df2['rating'], clustered_df2['usefulCount'],clustered_df2['condition'], c='blue', label='Cluster 2')
+plt.scatter(clustered_df3['rating'], clustered_df3['usefulCount'],clustered_df3['condition'], c='green', label='Cluster 3')
 
 
 
