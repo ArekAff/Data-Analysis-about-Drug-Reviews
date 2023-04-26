@@ -75,9 +75,17 @@ clustered_df0 = clustered_df[clustered_df['cluster_label'] == 0]
 clustered_df1 = clustered_df[clustered_df['cluster_label'] == 1]
 clustered_df2 = clustered_df[clustered_df['cluster_label'] == 2]
 clustered_df3 = clustered_df[clustered_df['cluster_label'] == 3]
+clustered_df4 = clustered_df[clustered_df['cluster_label'] == 4]
+clustered_df5 = clustered_df[clustered_df['cluster_label'] == 5]
 
 plt.scatter(clustered_df0['condition'], clustered_df0['usefulCount'],clustered_df0['rating'], c='red', label='Cluster 0')
-plt.scatter(clustered_df1['condition'], clustered_df1['usefulCount'],clustered_df1['rating'], c='blue', label='Cluster 1')
+plt.scatter(clustered_df1['condition'], clustered_df1['usefulCount'],clustered_df1['rating'], c='black', label='Cluster 1')
+plt.scatter(clustered_df2['condition'], clustered_df2['usefulCount'],clustered_df2['rating'], c='y', label='Cluster 2')
+plt.scatter(clustered_df3['condition'], clustered_df3['usefulCount'],clustered_df3['rating'], c='blue', label='Cluster 3')
+plt.scatter(clustered_df4['condition'], clustered_df4['usefulCount'],clustered_df4['rating'], c='green', label='Cluster 4')
+plt.scatter(clustered_df5['condition'], clustered_df5['usefulCount'],clustered_df5['rating'], c='brown', label='Cluster 5')
+
+
 #To do:
 # finish the plot
 # and possibly change clustering conditions because created clusters are no visibly differential of each other 
