@@ -9,6 +9,8 @@ df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
 
 
 df = df.dropna() # droping rows with the NaN values
+#We can drop Nan values becouse there are only 899 values that in condiotion column, 
+# that is not significant number in our database
 
 # Sample a subset of the data
 df = df.sample(frac=0.1, random_state=42)
