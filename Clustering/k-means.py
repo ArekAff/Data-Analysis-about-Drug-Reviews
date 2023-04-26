@@ -78,7 +78,10 @@ clustered_df3 = clustered_df[clustered_df['cluster_label'] == 3]
 
 plt.scatter(clustered_df0['condition'], clustered_df0['usefulCount'],clustered_df0['rating'], c='red', label='Cluster 0')
 plt.scatter(clustered_df1['condition'], clustered_df1['usefulCount'],clustered_df1['rating'], c='blue', label='Cluster 1')
-plt.scatter(clustered_df2['condition'], clustered_df2['usefulCount'],clustered_df2['rating'], c='black', label='Cluster 2')
+#To do:
+# finish the plot
+# and possibly change clustering conditions because created clusters are no visibly differential of each other 
+# could cluster just on reviews and coditions could be words and conditions to be determinated  
 
 
 
