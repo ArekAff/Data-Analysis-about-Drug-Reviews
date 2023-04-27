@@ -13,7 +13,7 @@ from nltk.corpus import stopwords
 from scipy.sparse import hstack
 import numpy as np
 df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
-df = df.sample(frac=0.1, random_state=42)
+#df = df.sample(frac=0.1, random_state=42)
 stopWords = stopwords.words('english')
 def Cleaningsentences(sentence):
     sentence = BeautifulSoup(sentence, 'html.parser').get_text() #Removing HTML tags
@@ -39,49 +39,83 @@ X = hstack([cleanReview,
             df['drugName'].values.reshape(-1, 1), 
             df['condition'].values.reshape(-1, 1)])
 
-# Elbow method
-wcss = []
-for i in range(1, 11):
-    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
-    kmeans.fit(cleanReview)
-    wcss.append(kmeans.inertia_)
-plt.plot(range(1, 11), wcss)
-plt.title('Elbow Method')
-plt.xlabel('Number of clusters')
-plt.ylabel('WCSS')
-plt.show()
+X = pd.concat([df[['condition', 'drugName']]], axis=1)
 
-# Silhouette score
-silhouette_scores = []
-for n_clusters in range(880, 885):
-    kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
-    cluster_labels = kmeans.fit_predict(X)
-    silhouette_avg = silhouette_score(X, cluster_labels)
-    silhouette_scores.append(silhouette_avg)
+# # Elbow method
+# wcss = []
+# for i in range(1, 20):
+#     kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+#     kmeans.fit(cleanReview)
+#     wcss.append(kmeans.inertia_)
+# plt.plot(range(1, 20), wcss)
+# plt.title('Elbow Method')
+# plt.xlabel('Number of clusters')
+# plt.ylabel('WCSS')
+# plt.show()
+
+# # Silhouette score
+# silhouette_scores = []
+# for n_clusters in range(2, 10):
+#     kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
+#     cluster_labels = kmeans.fit_predict(cleanReview)
+#     silhouette_avg = silhouette_score(cleanReview, cluster_labels)
+#     silhouette_scores.append(silhouette_avg)
     
-plt.plot(range(2, 60), silhouette_scores)
-plt.title('Silhouette Score Method')
-plt.xlabel('Number of clusters')
-plt.ylabel('Silhouette score')
-plt.show()
+# plt.plot(range(2, 60), silhouette_scores)
+# plt.title('Silhouette Score Method')
+# plt.xlabel('Number of clusters')
+# plt.ylabel('Silhouette score')
+# plt.show()
 
-k = 60
-model = KMeans(n_clusters=k, init='k-means++', max_iter=100, n_init=1)
-model.fit(X)
 
-df['cluster'] = model.labels_
+def Cluster(X,n,s): 
+    k = n
+    model = KMeans(n_clusters=n, init='k-means++', max_iter=100, n_init=1)
+    model.fit(X)
 
-labels = model.labels_
+    df['cluster'] = model.labels_
 
-clustered_df = pd.concat([df[['drugName', 'condition']].reset_index(drop=True), pd.DataFrame(labels, columns=['cluster'])], axis=1)
+    labels = model.labels_
 
-u_labels = np.unique(labels)
+    clustered_df = pd.concat([df[['drugName', 'condition']].reset_index(drop=True), pd.DataFrame(labels, columns=['cluster'])], axis=1)
 
-clustered_df[clustered_df['cluster'] == 0]
+    u_labels = np.unique(labels)
 
-for i in u_labels:
-    clus = clustered_df[clustered_df['cluster'] == i]
-    plt.scatter(clus['drugName'], clus['condition'] , label = i)
-plt.legend()
-plt.figsize=(20,100)
-plt.show()
+    clustered_df[clustered_df['cluster'] == 0]
+
+    for i in u_labels:
+        clus = clustered_df[clustered_df['cluster'] == i]
+        plt.scatter(clus['drugName'], clus['condition'] , label = i)
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize=12)
+    plt.figsize=(20,60)
+    plt.xticks(fontsize = 12)
+    plt.yticks(fontsize = 12)
+    plt.xlabel("Leki",fontsize=20)
+    plt.ylabel("Choroby",fontsize=20)
+    plt.title(f"Klastrowanie K-means na podstawie {s}, {n} klastrów",fontsize=24)
+    plt.show()
+
+Cluster(cleanReview, 5, 'recenzji')
+input()
+Cluster(cleanReview, 10,'recenzji')
+input()
+Cluster(cleanReview, 15, 'recenzji')
+
+X = pd.concat([df[['condition', 'drugName']]], axis=1)
+Cluster(X, 5, 'chorób oraz nazw leków')
+input()
+Cluster(X, 10, 'chorób oraz nazw leków')
+input()
+Cluster(X, 15, 'chorób oraz nazw leków')
+
+X = hstack([cleanReview, 
+            df['drugName'].values.reshape(-1, 1), 
+            df['condition'].values.reshape(-1, 1)])
+Cluster(X, 5, 'recenzji, chorób oraz nazw leków')
+input()
+Cluster(X, 10, 'recenzji, chorób oraz nazw leków')
+input()
+Cluster(X, 15, 'recenzji, chorób oraz nazw leków')
+
+
+
