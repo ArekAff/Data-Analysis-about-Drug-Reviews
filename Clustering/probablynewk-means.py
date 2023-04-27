@@ -53,19 +53,19 @@ plt.show()
 
 # Silhouette score
 silhouette_scores = []
-for n_clusters in range(20, 25):
+for n_clusters in range(880, 885):
     kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
     cluster_labels = kmeans.fit_predict(X)
     silhouette_avg = silhouette_score(X, cluster_labels)
     silhouette_scores.append(silhouette_avg)
     
-plt.plot(range(20, 25), silhouette_scores)
+plt.plot(range(2, 60), silhouette_scores)
 plt.title('Silhouette Score Method')
 plt.xlabel('Number of clusters')
 plt.ylabel('Silhouette score')
 plt.show()
 
-k = 22
+k = 60
 model = KMeans(n_clusters=k, init='k-means++', max_iter=100, n_init=1)
 model.fit(X)
 
