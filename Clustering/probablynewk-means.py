@@ -13,7 +13,7 @@ from nltk.corpus import stopwords
 from scipy.sparse import hstack
 import numpy as np
 df = pd.read_csv(r'C:\Users\Pendo\Desktop\MAD\Data-Analysis-about-Drug-Reviews\Clustering\drugsComTrain_raw.tsv',sep='\t')
-df = df.sample(frac=0.1, random_state=42)
+df = df.sample(frac=0.4, random_state=42)
 stopWords = stopwords.words('english')
 def Cleaningsentences(sentence):
     sentence = BeautifulSoup(sentence, 'html.parser').get_text() #Removing HTML tags
