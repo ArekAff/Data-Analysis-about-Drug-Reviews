@@ -12,8 +12,8 @@ import re
 from nltk.corpus import stopwords
 from scipy.sparse import hstack
 import numpy as np
-df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
-df = df.sample(frac=0.5, random_state=42)
+df = pd.read_csv(r'C:\Users\Pendo\Desktop\MAD\Data-Analysis-about-Drug-Reviews\Clustering\drugsComTrain_raw.tsv',sep='\t')
+df = df.sample(frac=0.1, random_state=42)
 stopWords = stopwords.words('english')
 def Cleaningsentences(sentence):
     sentence = BeautifulSoup(sentence, 'html.parser').get_text() #Removing HTML tags
@@ -142,8 +142,8 @@ def ClusterW(X,n,s):
     plt.yticks(fontsize = 12)
     plt.xlabel("Leki",fontsize=20)
     plt.ylabel("Choroby",fontsize=20)
-    plt.title(f"Klastrowanie Alomeracyjne na podstawie {s}, algorytmem ward dla {n} klastrów",fontsize=24)
+    plt.title(f"Klastrowanie aglomeracyjne na podstawie {s}, algorytmem ward'a dla {n} klastrów",fontsize=22)
     plt.show()
 
 
-ClusterW(X, 15, "recenzji, chorób oraz nazw leków")
+ClusterW(X, 5, "recenzji, chorób oraz nazw leków")
