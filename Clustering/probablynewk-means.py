@@ -4,7 +4,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
+from sklearn.cluster import KMeans, AgglomerativeClustering
 from sklearn.metrics import silhouette_score
 from nltk.stem import WordNetLemmatizer
 from bs4 import BeautifulSoup
@@ -12,8 +12,8 @@ import re
 from nltk.corpus import stopwords
 from scipy.sparse import hstack
 import numpy as np
-df = pd.read_csv('drugsComTrain_raw.tsv',sep='\t')
-#df = df.sample(frac=0.1, random_state=42)
+df = pd.read_csv(r'C:\Users\Pendo\Desktop\MAD\Data-Analysis-about-Drug-Reviews\Clustering\drugsComTrain_raw.tsv',sep='\t')
+df = df.sample(frac=0.4, random_state=42)
 stopWords = stopwords.words('english')
 def Cleaningsentences(sentence):
     sentence = BeautifulSoup(sentence, 'html.parser').get_text() #Removing HTML tags
@@ -95,7 +95,7 @@ def Cluster(X,n,s):
     plt.title(f"Klastrowanie K-means na podstawie {s}, {n} klastrów",fontsize=24)
     plt.show()
 
-Cluster(cleanReview, 5, 'recenzji')
+"""Cluster(cleanReview, 5, 'recenzji')
 input()
 Cluster(cleanReview, 10,'recenzji')
 input()
@@ -115,7 +115,35 @@ Cluster(X, 5, 'recenzji, chorób oraz nazw leków')
 input()
 Cluster(X, 10, 'recenzji, chorób oraz nazw leków')
 input()
-Cluster(X, 15, 'recenzji, chorób oraz nazw leków')
+Cluster(X, 15, 'recenzji, chorób oraz nazw leków')"""
+
+def ClusterW(X,n,s): 
+    k = n
+
+    model = AgglomerativeClustering(n_clusters=n)
+    model.fit(X)
+
+    df['cluster'] = model.labels_
+
+    labels = model.labels_
+
+    clustered_df = pd.concat([df[['drugName', 'condition']].reset_index(drop=True), pd.DataFrame(labels, columns=['cluster'])], axis=1)
+
+    u_labels = np.unique(labels)
+
+    clustered_df[clustered_df['cluster'] == 0]
+
+    for i in u_labels:
+        clus = clustered_df[clustered_df['cluster'] == i]
+        plt.scatter(clus['drugName'], clus['condition'] , label = i)
+    plt.legend(loc='center left', bbox_to_anchor=(1, 0.5),fontsize=12)
+    plt.figsize=(20,60)
+    plt.xticks(fontsize = 12)
+    plt.yticks(fontsize = 12)
+    plt.xlabel("Leki",fontsize=20)
+    plt.ylabel("Choroby",fontsize=20)
+    plt.title(f"Klastrowanie aglomeracyjne na podstawie {s}, algorytmem ward'a dla {n} klastrów",fontsize=22)
+    plt.show()
 
 
-
+ClusterW(X, 5, "recenzji, chorób oraz nazw leków")
