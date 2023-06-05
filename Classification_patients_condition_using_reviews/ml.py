@@ -1,6 +1,5 @@
 import pandas as pd
 import itertools
-import string
 import numpy as np
 import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -121,6 +120,16 @@ def Passive_Aggressive(train , test):
     passive = PassiveAggressiveClassifier()
     passive.fit(train, y_train)
     pred = passive.predict(test)
+    score = metrics.accuracy_score(y_test, pred)
+    print("accuracy:   %0.3f" % score)
+    cm = metrics.confusion_matrix(y_test, pred, labels=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+    plot_confusion_matrix(cm, classes=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
+    
+from sklearn.neighbors import KNeighborsClassifier
+def Knearest_neighbours(train , test):
+    knn = KNeighborsClassifier(n_neighbors = 5)
+    knn.fit(train, y_train)
+    pred = knn.predict(test)
     score = metrics.accuracy_score(y_test, pred)
     print("accuracy:   %0.3f" % score)
     cm = metrics.confusion_matrix(y_test, pred, labels=['Birth Control', 'Depression', 'Anxiety', 'Pain'])
