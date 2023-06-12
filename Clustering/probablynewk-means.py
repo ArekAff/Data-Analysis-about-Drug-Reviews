@@ -39,6 +39,7 @@ X = hstack([cleanReview,
             df['drugName'].values.reshape(-1, 1), 
             df['condition'].values.reshape(-1, 1)])
 
+
 X = pd.concat([df[['condition', 'drugName']]], axis=1)
 
 # # Elbow method
@@ -60,6 +61,27 @@ X = pd.concat([df[['condition', 'drugName']]], axis=1)
 #     cluster_labels = kmeans.fit_predict(cleanReview)
 #     silhouette_avg = silhouette_score(cleanReview, cluster_labels)
 #     silhouette_scores.append(silhouette_avg)
+
+# Elbow method
+"""wcss = []
+for i in range(1, 11):
+    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+    kmeans.fit(cleanReview)
+    wcss.append(kmeans.inertia_)
+plt.plot(range(1, 11), wcss)
+plt.title('Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.show()"""
+
+# Silhouette score
+silhouette_scores = []
+for n_clusters in range(880, 885):
+    kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42)
+    cluster_labels = kmeans.fit_predict(cleanReview)
+    silhouette_avg = silhouette_score(cleanReview, cluster_labels)
+    silhouette_scores.append(silhouette_avg)
+
     
 # plt.plot(range(2, 60), silhouette_scores)
 # plt.title('Silhouette Score Method')
@@ -125,7 +147,13 @@ def ClusterW(X,n,s):
 
     df['cluster'] = model.labels_
 
+
     labels = model.labels_
+
+"""k = 60
+model = KMeans(n_clusters=k, init='k-means++', max_iter=100, n_init=1)
+model.fit(X)
+
 
     clustered_df = pd.concat([df[['drugName', 'condition']].reset_index(drop=True), pd.DataFrame(labels, columns=['cluster'])], axis=1)
 
@@ -146,4 +174,13 @@ def ClusterW(X,n,s):
     plt.show()
 
 
+
 ClusterW(X, 5, "recenzji, chorób oraz nazw leków")
+=======
+for i in u_labels:
+    clus = clustered_df[clustered_df['cluster'] == i]
+    plt.scatter(clus['drugName'], clus['condition'] , label = i)
+plt.legend()
+plt.figsize=(20,100)
+plt.show()"""
+
